@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        header, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-family: 'Montserrat', serif;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #feb47b;
+        }
+
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: red;
+            text-transform: uppercase;
+            font-family: 'Montserrat', serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            width: 50px;
+            height: 4px;
+            background: red;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about img {
+            border-radius: 50%;
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .about img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap; /* Makes it responsive */
+            margin-top: 2rem;
+        }
+
+        .skill-box {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            overflow: hidden; /* Hides the overflowing part when the image scales */
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            flex: 1;
+            max-width: 300px; /* Max width for better responsiveness */
+            margin: 1rem;
+        }
+
+        .skill-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s ease;
+            z-index: 1;
+        }
+
+        .skill-box:hover img {
+            transform: scale(2.5); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8); 
+            z-index: 2; 
+        }
+
+        .skill-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+
+        .skill-box:hover .skill-description {
+            opacity: 1; 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        a.download-resume {
+            color: white;
+            background: red;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        a.download-resume:hover {
+            background: #feb47b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            font-family: 'Montserrat', serif;
+        }
+
+        footer a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #feb47b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Name</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Computer Science and Engineering undergrad student passionate about Cloud technologies, Full Stack Development, and IoT. Currently exploring Azure services and React.js while staying updated with emerging technologies.</p>
+        <div class="about">
+            <img src="nerangen.JPG" alt="Profile Picture">
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills">
+            <div class="skill-box">
+                <img src="cloud.jpg" alt="Cloud Skills">
+                <div class="skill-description">
+                    <p>Cloud Technologies</p>
+                </div>
+            </div>
+            <div class="skill-box">
+                <img src="fullstack.png" alt="Full Stack Development">
+                <div class="skill-description">
+                    <p>Full Stack Development</p>
+                </div>
+            </div>
+            <div class="skill-box">
+                <img src="iot.jpg" alt="IoT Skills">
+                <div class="skill-description">
+                    <p>IoT Technologies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects">
+        <h2>Projects</h2>
+        <p>Check out my latest projects showcasing my creativity and technical skills.</p>
+        <div class="skills">
+            <div class="skill-box">
+                <img src="sudoku.jpg" alt="Project 1">
+                <div class="skill-description">Sudoku is a logic-based number puzzle game played on a 9x9 grid, divided into nine 3x3 subgrids. The objective is to fill the grid so that each row, column, and 3x3 subgrid contains all digits from 1 to 9 without repetition. The puzzle starts with some numbers pre-filled, serving as clues, and the challenge lies in deducing the remaining numbers while adhering to the rules. Sudoku enhances critical thinking and problem-solving skills, making it a popular pastime for people of all ages.</div>
+            </div>
+            <div class="skill-box">
+                <img src="azure.png" alt="Project 2">
+                <div class="skill-description">ReadIt! is a cloud-based book inventory system deployed on Azure, designed to streamline book management for libraries, bookstores, or personal collections. It allows users to easily add, update, and track book details such as titles, authors, genres, and availability status. With its scalable Azure infrastructure, ReadIt! ensures high performance, security, and reliability, making it an efficient and user-friendly solution for managing book inventories online.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2>Resume</h2>
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="nerangen_resume_dec.pdf" class="download-resume" download>Download My Resume</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: nerangen2005@gmail.com </p>
+        <p>Phone: +91 94896 29231</p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/nerangen-karthikeyan-512b19297/" target="_blank">Visit My LinkedIn Profile- Nerangen Karthikeyan</a></p>
+    </section>
+
+    <footer>
+        <p>© 2025 Nerangen K | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
