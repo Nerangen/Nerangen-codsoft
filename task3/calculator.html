@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Responsive Calculator</title>
   <style>
-    /* General Reset */
+    
     * {
       margin: 0;
       padding: 0;
@@ -28,7 +28,7 @@
       100% { background-position: 100% 50%; }
     }
 
-    /* Calculator Container */
+    
     .calculator {
       background: #1e1e1e;
       padding: 20px;
@@ -41,7 +41,7 @@
       gap: 15px;
     }
 
-    /* Display Screen */
+    
     .screen {
       background: #333;
       color: #0ff;
@@ -62,7 +62,7 @@
       color: rgba(255, 255, 255, 0.5);
     }
 
-    /* Buttons Container */
+    
     .buttons {
       display: flex;
       flex-wrap: wrap;
@@ -84,7 +84,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     }
 
-    /* Button Styles */
+    
     button.number {
       background: #444;
       color: #fff;
@@ -108,10 +108,10 @@
     .equal {
       background: #4caf50;
       color: #fff;
-      flex: 1 1 48%; /* Center aligned and larger button */
+      flex: 1 1 48%; 
     }
 
-    /* Responsive Design */
+    
     @media screen and (max-width: 450px) {
       .calculator {
         padding: 15px;
@@ -207,7 +207,7 @@
           return;
       }
 
-      result = parseFloat(result.toFixed(10)); // Limit to 10 decimal places
+      result = parseFloat(result.toFixed(10)); 
       currentInput = result.toString();
       previousInput = '';
       operator = null;
