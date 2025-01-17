@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Services Landing Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px; /* Adjusted padding to move menu bar slightly left */
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00c2ff;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+
+        header .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1rem;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: #00c2ff;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            animation: fadeInDown 1.5s;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            animation: fadeInUp 1.5s;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            border: none;
+            background: radial-gradient(circle, #00c2ff, #019abe);
+            color: #000;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 194, 255, 0.5);
+            background: radial-gradient(circle, #019abe, #00c2ff);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .offerings {
+            padding: 50px;
+            background: linear-gradient(to bottom, #1b263b, #0d1b2a);
+            color: #fff;
+        }
+
+        .offerings h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #00c2ff;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+
+        .cards {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .card {
+            position: relative;
+            flex: 0 0 auto;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover img {
+            transform: scale(1.2);
+        }
+
+        .card .description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .description {
+            transform: translateY(0);
+        }
+
+        #about {
+            padding: 50px;
+            background: linear-gradient(to bottom, #1b263b, #0d1b2a);
+            color: #fff;
+        }
+
+        #about h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #00c2ff;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            text-align: justify;
+        }
+
+        #feedback {
+            padding: 50px;
+            background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+            color: #fff;
+        }
+
+        #feedback h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #00c2ff;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+
+        #feedback form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #feedback form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        #feedback form input, #feedback form textarea, #feedback form button {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #feedback form button {
+            background: radial-gradient(circle, #00c2ff, #019abe);
+            color: #000;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        #feedback form button:hover {
+            background: radial-gradient(circle, #019abe, #00c2ff);
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0f0f1f;
+            color: #fff;
+        }
+
+        footer a {
+            color: #00c2ff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #019abe;
+            text-shadow: 2px 2px 5px rgba(0, 194, 255, 0.6);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            Azure Cloud Services
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#about" onclick="smoothScroll(event, 'about')">About</a>
+            <a href="#services" onclick="smoothScroll(event, 'services')">Services</a>
+            <a href="#feedback" onclick="smoothScroll(event, 'feedback')">Feedback</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>Power Your Business with Azure</h1>
+            <p>Discover cloud solutions tailored for your needs.</p>
+            <button onclick="scrollToSection('services')">Explore Services</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Azure Cloud Services provides cutting-edge cloud solutions to businesses of all sizes. Our team of experts ensures seamless integration, robust security, and innovative AI-driven services to help you achieve your goals. Join us to experience the future of cloud computing.</p>
+    </section>
+
+    <section id="services" class="offerings">
+        <h2>Our Offerings</h2>
+        <div class="cards">
+            <div class="card">
+                <img src="migrate.jpg" alt="Cloud Migration">
+                <div class="description">
+                    <h3>Cloud Migration</h3>
+                    <p>Seamlessly migrate your infrastructure to Azure Cloud.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="integration.png" alt="AI Integration">
+                <div class="description">
+                    <h3>AI Integration</h3>
+                    <p>Empower your applications with advanced AI capabilities.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="analytics.jpg" alt="Data Analytics">
+                <div class="description">
+                    <h3>Data Analytics</h3>
+                    <p>Leverage data-driven insights to make informed decisions.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="cyber.jpg" alt="Cybersecurity">
+                <div class="description">
+                    <h3>Cybersecurity</h3>
+                    <p>Protect your data with state-of-the-art security solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="feedback">
+        <h2>Feedback</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Azure Cloud Services | Designed by <a href="#">Nerangen</a></p>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function smoothScroll(event, sectionId) {
+            event.preventDefault();
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
