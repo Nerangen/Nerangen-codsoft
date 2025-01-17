@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Calculator</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+      animation: gradient-bg 8s infinite alternate;
+      color: #fff;
+    }
+
+    @keyframes gradient-bg {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Calculator Container */
+    .calculator {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* Display Screen */
+    .screen {
+      background: #333;
+      color: #0ff;
+      font-size: 2rem;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: right;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .expression {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Buttons Container */
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1 1 22%;
+      padding: 15px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Button Styles */
+    button.number {
+      background: #444;
+      color: #fff;
+    }
+
+    button.operator {
+      background: #ff9500;
+      color: #fff;
+    }
+
+    button.special {
+      background: #555;
+      color: #0ff;
+    }
+
+    .clear {
+      background: #d32f2f;
+      color: #fff;
+    }
+
+    .equal {
+      background: #4caf50;
+      color: #fff;
+      flex: 1 1 48%; /* Center aligned and larger button */
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 450px) {
+      .calculator {
+        padding: 15px;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 12px;
+      }
+
+      .screen {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="screen" id="screen">
+      <div class="expression" id="expression"></div>
+      <div id="result">0</div>
+    </div>
+    <div class="buttons">
+      <!-- Number Buttons -->
+      <button class="number" onclick="appendNumber('7')">7</button>
+      <button class="number" onclick="appendNumber('8')">8</button>
+      <button class="number" onclick="appendNumber('9')">9</button>
+      <button class="operator" onclick="chooseOperator('/')">&#247;</button>
+
+      <button class="number" onclick="appendNumber('4')">4</button>
+      <button class="number" onclick="appendNumber('5')">5</button>
+      <button class="number" onclick="appendNumber('6')">6</button>
+      <button class="operator" onclick="chooseOperator('*')">&#215;</button>
+
+      <button class="number" onclick="appendNumber('1')">1</button>
+      <button class="number" onclick="appendNumber('2')">2</button>
+      <button class="number" onclick="appendNumber('3')">3</button>
+      <button class="operator" onclick="chooseOperator('-')">&#8722;</button>
+
+      <button class="special clear" onclick="clearCalculator()">C</button>
+      <button class="number" onclick="appendNumber('0')">0</button>
+      <button class="special" onclick="appendNumber('.')">.</button>
+      <button class="operator" onclick="chooseOperator('+')">&#43;</button>
+
+      <button class="equal" onclick="calculateResult()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let currentInput = '';
+    let previousInput = '';
+    let operator = null;
+
+    const resultDisplay = document.getElementById('result');
+    const expressionDisplay = document.getElementById('expression');
+
+    function appendNumber(number) {
+      if (currentInput.includes('.') && number === '.') return;
+      currentInput += number;
+      updateScreen();
+    }
+
+    function chooseOperator(op) {
+      if (currentInput === '') return;
+      if (previousInput !== '') calculateResult();
+      operator = op;
+      previousInput = currentInput;
+      currentInput = '';
+      updateScreen();
+    }
+
+    function calculateResult() {
+      if (operator === null || currentInput === '' || previousInput === '') return;
+
+      const prev = parseFloat(previousInput);
+      const curr = parseFloat(currentInput);
+      let result;
+
+      switch (operator) {
+        case '+':
+          result = prev + curr;
+          break;
+        case '-':
+          result = prev - curr;
+          break;
+        case '*':
+          result = prev * curr;
+          break;
+        case '/':
+          result = curr !== 0 ? prev / curr : 'Error';
+          break;
+        default:
+          return;
+      }
+
+      result = parseFloat(result.toFixed(10)); // Limit to 10 decimal places
+      currentInput = result.toString();
+      previousInput = '';
+      operator = null;
+      updateScreen();
+    }
+
+    function clearCalculator() {
+      currentInput = '';
+      previousInput = '';
+      operator = null;
+      updateScreen();
+    }
+
+    function updateScreen() {
+      resultDisplay.innerText = currentInput || '0';
+      expressionDisplay.innerText = `${previousInput} ${operator || ''} ${currentInput}`.trim();
+    }
+  </script>
+</body>
+</html>
